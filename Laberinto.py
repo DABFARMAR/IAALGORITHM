@@ -8,16 +8,16 @@ class Laberinto:
         with open(archivo) as contenido:
             contenido = contenido.readlines()
 
-        altura = len(contenido)
-        # ancho = len(contenido[0]) - 1
-        self.laberinto = [None]*altura
+        self.altura = len(contenido)
+        self.ancho = len(contenido[0]) - 1
+        self.laberinto = [None]*self.altura
 
         for idx, line in enumerate(contenido):
             if "A" in line:
-                self.inicio = (line.index("A"), idx)
+                self.inicio = (idx, line.index("A"))
 
             if "B" in line:
-                self.objetivo = (line.index("B"), idx)
+                self.objetivo = (idx, line.index("B"))
 
             self.laberinto[idx] = list(line.replace("\n", ""))
 
@@ -36,4 +36,7 @@ class Laberinto:
                (posicion[0]-1, posicion[1])]
 
         return list(
-            filter(lambda e: -1 not in e or self.laberinto[e[0]][e[1]] != "#", rtn))
+            filter(lambda e: -1 not in e and
+                   self.altura not in e and
+                   self.ancho not in e and
+                   self.laberinto[e[0]][e[1]] != "#", rtn))
