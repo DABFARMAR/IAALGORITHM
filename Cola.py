@@ -61,11 +61,5 @@ class Cola:
 
         return rtn
 
-
-c = Cola(2)
-c.agregar(1)
-c.agregar(2)
-
-c.remover()
-
-print(c)
+    def contiene(self, elemento):
+        return True if elemento in self.arreglo else False

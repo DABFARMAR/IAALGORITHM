@@ -52,3 +52,6 @@ class Pila:
             rtn += f"[{elem}]"
 
         return rtn
+
+    def contiene(self, elemento):
+        return True if elemento in self.arreglo else False

@@ -1,3 +1,6 @@
+import os
+from time import sleep
+
 
 class Laberinto:
 
@@ -11,6 +14,7 @@ class Laberinto:
         self.altura = len(contenido)
         self.ancho = len(contenido[0]) - 1
         self.laberinto = [None]*self.altura
+        self.size = self.altura * self.ancho
 
         for idx, line in enumerate(contenido):
             if "A" in line:
@@ -29,6 +33,9 @@ class Laberinto:
     def getObjetivo(self):
         return self.objetivo
 
+    def getSize(self):
+        return self.size
+
     def getVecinos(self, posicion):
         rtn = [(posicion[0], posicion[1]-1),
                (posicion[0], posicion[1]+1),
@@ -37,6 +44,18 @@ class Laberinto:
 
         return list(
             filter(lambda e: -1 not in e and
-                   self.altura not in e and
-                   self.ancho not in e and
+                   self.altura != e[0] and
+                   self.ancho != e[1] and
                    self.laberinto[e[0]][e[1]] != "#", rtn))
+
+    def mostrar(self, posicion=None):
+        os.system('cls' if os.name == 'nt' else 'clear')
+
+        if posicion != None:
+            caracter = "😀" if posicion == self.objetivo else "█"
+            self.laberinto[posicion[0]][posicion[1]] = caracter
+
+        for line in self.laberinto:
+            print("".join(line), end="\n")
+
+        sleep(0.1)
