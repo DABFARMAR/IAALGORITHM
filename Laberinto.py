@@ -1,5 +1,6 @@
 import os
 from time import sleep
+import sys
 
 
 class Laberinto:
@@ -23,6 +24,10 @@ class Laberinto:
                 self.objetivo = (idx, line.index("B"))
 
             self.laberinto[idx] = list(line.replace("\n", ""))
+
+        if not self.inicio or not self.objetivo:
+            print("El laberinto no tiene un punto de partida o un objetivo.")
+            sys.exit(0)
 
         # print(self.inicio, self.objetivo)
 
@@ -50,8 +55,8 @@ class Laberinto:
     def mostrar(self, posicion=None):
         os.system('cls' if os.name == 'nt' else 'clear')
 
-        if posicion != None:
-            caracter = "😀" if posicion == self.objetivo else "█"
+        if posicion != None and posicion != self.inicio:
+            caracter = "\033[42;30mB\033[0m" if posicion == self.objetivo else "\033[33m█\033[0m"
             self.laberinto[posicion[0]][posicion[1]] = caracter
 
         for line in self.laberinto:

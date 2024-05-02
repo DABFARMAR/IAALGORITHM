@@ -4,9 +4,10 @@ from Laberinto import Laberinto
 
 
 class Busqueda:
-    def __init__(self, laberinto):
+    def __init__(self, laberinto, tipo):
         self.laberinto = laberinto
-        self.frontera = Cola(laberinto.getSize())
+        self.frontera = Pila(laberinto.getSize()) if tipo == 0 else Cola(
+            laberinto.getSize())
         self.explorados = Pila(laberinto.getSize())
         self.estado_inicial = laberinto.getInicio()
         self.estado_objetivo = laberinto.getObjetivo()
@@ -25,6 +26,9 @@ class Busqueda:
             self.explorados.agregar(nodo)
             vecinos = self.laberinto.getVecinos(nodo)
 
+            # Ultimo nodo con vecinos antes del nodo sin vecinos es el punto decision
+            # Nodo sin vecinos es el final del tramo
+
             for vecino in vecinos:
                 if not self.frontera.contiene(vecino) and not self.explorados.contiene(vecino):
                     self.frontera.agregar(vecino)
@@ -33,6 +37,9 @@ class Busqueda:
         return
 
 
-laberinto = Laberinto("maze4.txt")
-b = Busqueda(laberinto)
+laberinto = Laberinto("maze2.txt")
+
+# 0 - Pila
+# 1 - Cola
+b = Busqueda(laberinto, 0)
 b.buscarSolucion()
