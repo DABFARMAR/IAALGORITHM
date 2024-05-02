@@ -14,7 +14,6 @@ class Laberinto:
         self.altura = len(contenido)
         self.ancho = len(contenido[0]) - 1
         self.laberinto = [None]*self.altura
-        self.size = self.altura * self.ancho
 
         for idx, line in enumerate(contenido):
             if "A" in line:
@@ -34,7 +33,7 @@ class Laberinto:
         return self.objetivo
 
     def getSize(self):
-        return self.size
+        return self.altura * self.ancho
 
     def getVecinos(self, posicion):
         rtn = [(posicion[0], posicion[1]-1),
