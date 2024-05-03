@@ -1,6 +1,5 @@
 from Pila import Pila
 from Cola import Cola
-from Laberinto import Laberinto
 
 
 class Nodo:
@@ -51,11 +50,3 @@ class Busqueda:
 
         print("No existe solución.")
         return
-
-
-laberinto = Laberinto("maze2.txt")
-
-# 0 - Pila
-# 1 - Cola
-b = Busqueda(laberinto, 1)
-b.buscarSolucion()
