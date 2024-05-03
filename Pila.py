@@ -54,4 +54,8 @@ class Pila:
         return rtn
 
     def contiene(self, elemento):
-        return True if elemento in self.arreglo else False
+        for elem in self.arreglo:
+            if elem != None and elem.getPos() == elemento:
+                return True
+
+        return False

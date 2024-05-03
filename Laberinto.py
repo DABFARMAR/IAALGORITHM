@@ -41,10 +41,10 @@ class Laberinto:
         return self.altura * self.ancho
 
     def getVecinos(self, posicion):
-        rtn = [(posicion[0], posicion[1]-1),
-               (posicion[0], posicion[1]+1),
+        rtn = [(posicion[0]-1, posicion[1]),
                (posicion[0]+1, posicion[1]),
-               (posicion[0]-1, posicion[1])]
+               (posicion[0], posicion[1]-1),
+               (posicion[0], posicion[1]+1)]
 
         return list(
             filter(lambda e: -1 not in e and
@@ -60,6 +60,23 @@ class Laberinto:
             self.laberinto[posicion[0]][posicion[1]] = caracter
 
         for line in self.laberinto:
-            print("".join(line), end="\n")
+            print("".join(line).replace("#", "█"), end="\n")
 
         sleep(0.1)
+
+    def mostrar_solucion(self, nodo):
+        padre = nodo.getPadre()
+        posicion = nodo.getPos()
+
+        if padre == None:
+            return
+
+        os.system('cls' if os.name == 'nt' else 'clear')
+
+        if nodo.getPos() != self.objetivo:
+            self.laberinto[posicion[0]][posicion[1]] = "\033[92m█\033[0m"
+
+        for line in self.laberinto:
+            print("".join(line).replace("#", "█"), end="\n")
+
+        self.mostrar_solucion(padre)
