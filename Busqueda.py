@@ -29,13 +29,14 @@ class Busqueda:
 
         while not self.frontera.vacia():
             nodo = self.frontera.remover()
-
             posicion = nodo.getPos()
+
             self.laberinto.mostrar(posicion)
+
             if posicion == self.estado_objetivo:
                 self.laberinto.mostrar_solucion(nodo)
 
-                print("Objetivo encontrado en la posicion:", posicion)
+                print("Objetivo encontrado en la posición:", posicion)
                 print(f"Nodos explorados:", len(self.explorados))
                 return nodo
 
@@ -52,9 +53,9 @@ class Busqueda:
         return
 
 
-laberinto = Laberinto("maze30.txt")
+laberinto = Laberinto("maze2.txt")
 
 # 0 - Pila
 # 1 - Cola
-b = Busqueda(laberinto, 0)
+b = Busqueda(laberinto, 1)
 b.buscarSolucion()
