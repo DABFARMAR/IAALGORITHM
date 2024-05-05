@@ -6,5 +6,5 @@ laberinto = Laberinto("maze2.txt")
 
 # 0 - Pila
 # 1 - Cola
-b = Busqueda(laberinto, 1)
+b = Busqueda(laberinto, tipo=1)
 b.buscarSolucion()
