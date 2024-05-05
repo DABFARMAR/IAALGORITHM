@@ -30,13 +30,13 @@ class Busqueda:
             nodo = self.frontera.remover()
             posicion = nodo.getPos()
 
-            self.laberinto.mostrar(posicion)
+            self.laberinto.mostrarPosicion(posicion)
 
             if posicion == self.estado_objetivo:
-                self.laberinto.mostrar_solucion(nodo)
+                self.laberinto.mostrarSolucion(nodo)
 
                 print("Objetivo encontrado en la posición:", posicion)
-                print(f"Nodos explorados:", len(self.explorados))
+                print("Nodos explorados:", len(self.explorados))
                 return nodo
 
             self.explorados.agregar(nodo)
@@ -44,9 +44,7 @@ class Busqueda:
 
             for vecino in vecinos:
                 if not self.frontera.contiene(vecino) and not self.explorados.contiene(vecino):
-                    padre = Nodo(posicion, nodo.getPadre())
-                    nodo_vecino = Nodo(vecino, padre)
+                    nodo_vecino = Nodo(vecino, nodo)
                     self.frontera.agregar(nodo_vecino)
 
         print("No existe solución.")
-        return

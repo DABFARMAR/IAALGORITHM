@@ -4,7 +4,6 @@ import sys
 
 
 class Laberinto:
-
     def __init__(self, archivo):
         self.inicio = None
         self.objetivo = None
@@ -12,9 +11,9 @@ class Laberinto:
         with open(archivo) as contenido:
             contenido = contenido.readlines()
 
-        self.altura = len(contenido)
+        self.alto = len(contenido)
         self.ancho = len(contenido[0]) - 1
-        self.laberinto = [None]*self.altura
+        self.laberinto = [None]*self.alto
 
         for idx, line in enumerate(contenido):
             if "A" in line:
@@ -29,8 +28,6 @@ class Laberinto:
             print("El laberinto no tiene un punto de partida o un objetivo.")
             sys.exit(0)
 
-        # print(self.inicio, self.objetivo)
-
     def getInicio(self):
         return self.inicio
 
@@ -38,7 +35,7 @@ class Laberinto:
         return self.objetivo
 
     def getSize(self):
-        return self.altura * self.ancho
+        return self.alto * self.ancho
 
     def getVecinos(self, posicion):
         rtn = [(posicion[0]-1, posicion[1]),
@@ -48,35 +45,33 @@ class Laberinto:
 
         return list(
             filter(lambda e: -1 not in e and
-                   self.altura != e[0] and
-                   self.ancho != e[1] and
+                   e[0] < self.alto and
+                   e[1] < self.ancho and
                    self.laberinto[e[0]][e[1]] != "#", rtn))
 
-    def mostrar(self, posicion=None):
+    def mostrarLaberinto(self):
         os.system('cls' if os.name == 'nt' else 'clear')
-
-        if posicion != None and posicion != self.inicio:
-            caracter = "\033[42;30mB\033[0m" if posicion == self.objetivo else "\033[33m█\033[0m"
-            self.laberinto[posicion[0]][posicion[1]] = caracter
 
         for line in self.laberinto:
             print("".join(line).replace("#", "█"), end="\n")
 
-        sleep(0.1)
+    def mostrarPosicion(self, posicion=None):
+        if posicion != None and posicion != self.inicio:
+            caracter = "\033[32;1mB\033[0m" if posicion == self.objetivo else "\033[38;5;208m█\033[0m"
+            self.laberinto[posicion[0]][posicion[1]] = caracter
 
-    def mostrar_solucion(self, nodo):
+        self.mostrarLaberinto()
+        sleep(0.05)
+
+    def mostrarSolucion(self, nodo):
         padre = nodo.getPadre()
         posicion = nodo.getPos()
 
         if padre == None:
+            self.mostrarLaberinto()
             return
 
-        os.system('cls' if os.name == 'nt' else 'clear')
-
         if nodo.getPos() != self.objetivo:
-            self.laberinto[posicion[0]][posicion[1]] = "\033[92m█\033[0m"
+            self.laberinto[posicion[0]][posicion[1]] = "\033[32;1m█\033[0m"
 
-        for line in self.laberinto:
-            print("".join(line).replace("#", "█"), end="\n")
-
-        self.mostrar_solucion(padre)
+        self.mostrarSolucion(padre)

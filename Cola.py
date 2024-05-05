@@ -30,12 +30,15 @@ class Cola:
     # Si la cola esta llena retorna False
     def agregar(self, valor):
         if self.longitud < self.largo:
-            self.arreglo[self.contador % self.largo] = valor
+            if self.contador == self.largo:
+                self.contador *= 0
+
+            self.arreglo[self.contador] = valor
             self.contador += 1
             self.longitud += 1
         else:
             print("Cola llena")
-            return False
+            return
 
     # remover: None -> valor
     # Quita un elemento de la cola y lo retorna
@@ -49,7 +52,7 @@ class Cola:
             return rm
         else:
             print("Cola vacía")
-            return False
+            return
 
     # __str__: None -> str
     # Cuando se aplica la función print() de python a un objeto de tipo Cola
@@ -61,6 +64,7 @@ class Cola:
 
         return rtn
 
+    # contiene: elemento -> boolean
     def contiene(self, elemento):
         for elem in self.arreglo:
             if elem != None and elem.getPos() == elemento:

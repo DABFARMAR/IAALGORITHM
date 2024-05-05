@@ -28,7 +28,7 @@ class Pila:
             self.longitud += 1
         else:
             print("Pila llena")
-            return False
+            return
 
     # remover: None -> valor
     # Quita un elemento de la pila y lo retorna
@@ -41,7 +41,7 @@ class Pila:
             return rm
         else:
             print("Pila vacía")
-            return False
+            return
 
     # __str__: None -> str
     # Cuando se aplica la función print() de python a un objeto de tipo Pila
@@ -53,6 +53,7 @@ class Pila:
 
         return rtn
 
+    # contiene: elemento -> boolean
     def contiene(self, elemento):
         for elem in self.arreglo:
             if elem != None and elem.getPos() == elemento:
